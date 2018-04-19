@@ -70,7 +70,7 @@ public class PasteBuilder {
         String toString = GsonProviderLol.GSON.toJson(this);
         System.out.println(toString);
         try {
-            String result = Request.Post("https://paste.gg/api/pastes")
+            String result = Request.Post("https://api.paste.gg/v0/pastes")
                     .bodyString(toString, ContentType.APPLICATION_JSON)
                     .execute()
                     .returnContent().asString(Charset.defaultCharset());
