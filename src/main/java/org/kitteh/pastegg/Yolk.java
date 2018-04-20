@@ -23,15 +23,33 @@
  */
 package org.kitteh.pastegg;
 
-public class Test {
-    public static void main(String[] args) {
-        PasteBuilder.PasteResult result = new PasteBuilder().name("TEST!").addFile(new PasteFile("jkcclemens.txt", new PasteContent(PasteContent.ContentType.TEXT, "HELLO WORLD"))).build();
+import org.apache.http.client.fluent.Form;
+import org.apache.http.client.fluent.Request;
 
-        System.out.println(result.getMessage());
-        System.out.println(result.getPaste().isPresent() ? result.getPaste().get().getId() : "NOPE");
+import java.nio.charset.Charset;
 
-        System.out.println("https://paste.gg/anonymous/" + result.getPaste().get().getId());
+public class Yolk {
+    /**
+     * Shortens a paste.gg URL.
+     *
+     * @param url
+     * @return
+     */
+    public static String shorten(String url) {
+        try {
+            String s = Request.Post("https://yolk.science/paste.php")
+                    .bodyForm(Form.form()
+                            .add("url", url)
+                            .build())
+                    .execute()
+                    .returnContent().asString(Charset.defaultCharset());
+            if (s.startsWith("https://yolk.science")) {
+                return s;
+            }
+        } catch (Exception e) {
+            // WHO'S THAT POKEMON?
+        }
 
-        System.out.println(Yolk.shorten("https://paste.gg/anonymous/" + result.getPaste().get().getId()));
+        return url;
     }
 }
