@@ -32,8 +32,8 @@ public class Yolk {
     /**
      * Shortens a paste.gg URL.
      *
-     * @param url
-     * @return
+     * @param url url to shorten
+     * @return possibly shortened url
      */
     public static String shorten(String url) {
         try {

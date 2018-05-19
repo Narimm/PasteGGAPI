@@ -41,11 +41,8 @@ public class PasteContent {
             try {
                 ByteArrayOutputStream byteOutput = new ByteArrayOutputStream(bytes.length);
                 try {
-                    GZIPOutputStream gzipOutput = new GZIPOutputStream(byteOutput);
-                    try {
+                    try (GZIPOutputStream gzipOutput = new GZIPOutputStream(byteOutput)) {
                         gzipOutput.write(bytes);
-                    } finally {
-                        gzipOutput.close();
                     }
                 } finally {
                     byteOutput.close();
@@ -63,7 +60,7 @@ public class PasteContent {
 
         private final Function<String, String> processor;
 
-        private ContentType(Function<String, String> processor) {
+        ContentType(Function<String, String> processor) {
             this.processor = processor;
         }
 
