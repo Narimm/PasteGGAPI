@@ -28,6 +28,9 @@ import org.apache.http.client.fluent.Request;
 
 import java.nio.charset.Charset;
 
+/**
+ * Paste URL shortener. Because paste.gg URLS aren't short enough!
+ */
 public class Yolk {
     /**
      * Shortens a paste.gg URL.

@@ -32,8 +32,14 @@ import java.util.zip.GZIPOutputStream;
 
 public class PasteContent {
     public enum ContentType {
+        /**
+         * QmFzZTY0IGVuY29kZWQgY29udGVudC4=
+         */
         @SerializedName("base64")
         BASE64(string -> Base64.getUrlEncoder().encodeToString(string.getBytes())),
+        /**
+         * GZIP encoded content.
+         */
         @SerializedName("gzip")
         GZIP(string -> {
             byte[] bytes = string.getBytes();
@@ -53,8 +59,14 @@ public class PasteContent {
             }
         }
         ),
+        /**
+         * Just give me the text!
+         */
         @SerializedName("text")
         TEXT(string -> string),
+        /**
+         * XZ is presently unsupported.
+         */
         @SerializedName("xz")
         XZ(string -> string); // TODO
 
@@ -74,7 +86,16 @@ public class PasteContent {
 
     private transient String processedValue;
 
+    /**
+     * Constructs a paste content.
+     *
+     * @param format format of the content
+     * @param value content
+     */
     public PasteContent(ContentType format, String value) {
+        if (format == ContentType.XZ) {
+            throw new UnsupportedOperationException("XZ not presently supported");
+        }
         this.format = format;
         this.value = format.getProcessor().apply(value);
         this.processedValue = value;
