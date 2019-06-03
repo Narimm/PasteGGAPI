@@ -68,13 +68,12 @@ public class PasteBuilder {
 
     public PasteResult build() {
         String toString = GsonProviderLol.GSON.toJson(this);
-        System.out.println(toString);
         try {
-            String result = Request.Post("https://api.paste.gg/v0/pastes")
+            String result = Request.Post("https://api.paste.gg/v1/pastes")
                     .bodyString(toString, ContentType.APPLICATION_JSON)
                     .execute()
                     .returnContent().asString(Charset.defaultCharset());
-            System.out.println(result);
+            // System.out.println(result);
             return GsonProviderLol.GSON.fromJson(result, PasteResult.class);
         } catch (IOException e) {
             e.printStackTrace();

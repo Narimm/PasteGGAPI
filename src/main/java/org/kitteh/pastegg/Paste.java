@@ -28,7 +28,7 @@ import java.util.Optional;
 
 public class Paste {
     private final String id;
-    private final String deletionKey;
+    private final String deletion_key;
 
     /**
      * Constructs a paste without a deletion key.
@@ -47,7 +47,7 @@ public class Paste {
      */
     public Paste(String id, String deletionKey) {
         this.id = id;
-        this.deletionKey = deletionKey;
+        this.deletion_key = deletionKey;
     }
 
     /**
@@ -65,6 +65,6 @@ public class Paste {
      * @return deletion key or empty if not anonymous
      */
     public Optional<String> getDeletionKey() {
-        return Optional.ofNullable(this.deletionKey);
+        return Optional.ofNullable(this.deletion_key);
     }
 }

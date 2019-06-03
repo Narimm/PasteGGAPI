@@ -29,6 +29,7 @@ public class Test {
 
         System.out.println(result.getMessage());
         System.out.println(result.getPaste().isPresent() ? result.getPaste().get().getId() : "NOPE");
+        result.getPaste().ifPresent(p -> p.getDeletionKey().ifPresent(System.out::println));
 
         System.out.println("https://paste.gg/anonymous/" + result.getPaste().get().getId());
 
