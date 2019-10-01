@@ -1,5 +1,5 @@
 /*
- * * Copyright (C) 2018 Matt Baxter https://kitteh.org
+ * * Copyright (C) 2018-2019 Matt Baxter https://kitteh.org
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -23,9 +23,19 @@
  */
 package org.kitteh.pastegg;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Test {
     public static void main(String[] args) {
-        PasteBuilder.PasteResult result = new PasteBuilder().name("TEST!").addFile(new PasteFile("jkcclemens.txt", new PasteContent(PasteContent.ContentType.TEXT, "HELLO WORLD"))).build();
+        PasteBuilder.PasteResult result = new PasteBuilder()
+                .name("TEST!")
+                .addFile(new PasteFile("jkcclemens.txt", new PasteContent(PasteContent.ContentType.TEXT, "HELLO WORLD")))
+                .addFile(new PasteFile("paste.txt", new PasteContent(PasteContent.ContentType.TEXT, "HELLO PASTE")))
+                .visibility(Visibility.UNLISTED)
+                .expires(ZonedDateTime.now( ZoneOffset.UTC ).plusSeconds(10))
+                .build();
 
         System.out.println(result.getMessage());
         System.out.println(result.getPaste().isPresent() ? result.getPaste().get().getId() : "NOPE");

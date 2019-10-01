@@ -1,5 +1,5 @@
 /*
- * * Copyright (C) 2018 Matt Baxter https://kitteh.org
+ * * Copyright (C) 2018-2019 Matt Baxter https://kitteh.org
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -28,6 +28,8 @@ import org.apache.http.entity.ContentType;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -50,9 +52,16 @@ public class PasteBuilder {
     private Visibility visibility = Visibility.getDefault();
     private String name;
     private List<PasteFile> files = new LinkedList<>();
+    private String expires;
 
     public PasteBuilder name(String name) {
         this.name = name;
+        return this;
+    }
+
+    // ZonedDateTime.now( ZoneOffset.UTC ).plusSeconds(10)
+    public PasteBuilder expires(ZonedDateTime when) {
+        this.expires = when == null ? null : when.format(DateTimeFormatter.ISO_INSTANT);
         return this;
     }
 
