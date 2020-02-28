@@ -23,19 +23,19 @@
  */
 package org.kitteh.pastegg;
 
-import org.apache.http.client.fluent.Request;
-import org.apache.http.entity.ContentType;
-
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public class PasteBuilder {
-    public class PasteResult {
+
+    @SuppressWarnings("unused")
+    public static class PasteResult {
+
         private String status;
         private Paste result;
         private String message;
@@ -51,6 +51,7 @@ public class PasteBuilder {
 
     private Visibility visibility = Visibility.getDefault();
     private String name;
+    @SuppressWarnings({"TypeMayBeWeakened", "MismatchedQueryAndUpdateOfCollection"})
     private List<PasteFile> files = new LinkedList<>();
     private String expires;
 
@@ -78,11 +79,7 @@ public class PasteBuilder {
     public PasteResult build() {
         String toString = GsonProviderLol.GSON.toJson(this);
         try {
-            String result = Request.Post("https://api.paste.gg/v1/pastes")
-                    .bodyString(toString, ContentType.APPLICATION_JSON)
-                    .execute()
-                    .returnContent().asString(Charset.defaultCharset());
-            // System.out.println(result);
+            String result = ConnectionProvider.processPasteRequest(toString);
             return GsonProviderLol.GSON.fromJson(result, PasteResult.class);
         } catch (IOException e) {
             e.printStackTrace();

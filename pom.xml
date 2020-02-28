@@ -45,7 +45,6 @@
         <system>GitHub</system>
         <url>https://github.com/KittehOrg/PasteGGAPI/issues</url>
     </issueManagement>
-
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -55,11 +54,10 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>fluent-hc</artifactId>
-            <version>4.5.5</version>
-            <type>jar</type>
-            <scope>compile</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
